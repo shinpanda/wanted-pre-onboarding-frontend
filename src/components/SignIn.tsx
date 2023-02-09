@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchSignIn } from "../api";
 import { useAuth } from "../Auth";
 
-interface iForm {
+interface ISignInInputs {
   email: string;
   password: string;
 }
 
 function SignIn() {
   const { login } = useAuth();
-  const [signInInputs, setSignInInputs] = useState<iForm>({
+  const [signInInputs, setSignInInputs] = useState<ISignInInputs>({
     email: "",
     password: "",
   });

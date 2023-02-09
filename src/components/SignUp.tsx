@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchSignUp } from "../api";
 
-interface iForm {
+interface ISignUpInputs {
   email: string;
   password: string;
 }
 
 function SignUp() {
-  const [signUpInputs, setSignUpInputs] = useState<iForm>({
+  const [signUpInputs, setSignUpInputs] = useState<ISignUpInputs>({
     email: "",
     password: "",
   });

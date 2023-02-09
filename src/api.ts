@@ -1,4 +1,4 @@
-import { getAccessToken } from "./atoms";
+import { getAccessToken, ITodo } from "./atoms";
 
 const BASE_URL = "https://pre-onboarding-selection-task.shop";
 
@@ -29,12 +29,6 @@ export async function fetchSignIn(email: string, password: string) {
 }
 
 // todo Api
-interface ITodo {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
 
 export async function fetchCreateToDo(todo: string) {
   return await fetch(`${BASE_URL}/todos`, {
