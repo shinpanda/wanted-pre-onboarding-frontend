@@ -4,8 +4,6 @@
 - 데모 영상 (배포 링크로 대체 가능)
   https://shinpanda.github.io/wanted-pre-onboarding-frontend
 
-* 주의할 점
-
 ---
 
 - 기능구현에 직접적으로 연관된 라이브러리 사용은 허용되지 않습니다.(React-Query 등)
