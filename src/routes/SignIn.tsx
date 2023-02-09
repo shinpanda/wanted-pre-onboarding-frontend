@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchSignIn } from "../api";
-import { setAccessToken } from "../atoms";
+import { useAuth } from "../Auth";
 
 interface iForm {
   email: string;
@@ -9,11 +9,14 @@ interface iForm {
 }
 
 function SignIn() {
+  const { login } = useAuth();
   const [signInInputs, setSignInInputs] = useState<iForm>({
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
   const [signInBtn, setSignInBtn] = useState(false);
+  const navigate = useNavigate();
 
   const emailValidation = (email: string): boolean => email.indexOf("@") >= 0;
   const passwordValidation = (password: string): boolean => password.length > 8;
@@ -29,11 +32,18 @@ function SignIn() {
         signInInputs.email,
         signInInputs.password
       );
-      const accessToken = response.access_token;
-      if (accessToken) {
-        setAccessToken(accessToken);
-        redirect(`/todo`);
+      console.log(response);
+      if ("error" in response) {
+        setErrorMessage(response.message);
+      } else {
+        const accessToken = response.access_token;
+        if (accessToken) {
+          login(accessToken);
+          navigate(`/todo`);
+        }
       }
+    } else {
+      setErrorMessage("이메일과 패스워드를 먼저 입력해주세요.");
     }
   };
 
@@ -80,6 +90,7 @@ function SignIn() {
           로그인
         </button>
       </form>
+      {errorMessage ? <div>{errorMessage}</div> : ""}
       <Link to="/signup">&rarr; 회원가입</Link>
     </>
   );

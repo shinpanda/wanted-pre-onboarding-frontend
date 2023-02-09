@@ -11,16 +11,9 @@ export async function fetchSignUp(email: string, password: string) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  })
-    .then((response) => {
-      if (response.status !== 201) {
-        throw new Error("정상적으로 생성하지 못했습니다.");
-      }
-      return response.json();
-    })
-    .catch((reason) => {
-      return { errorMessage: reason };
-    });
+  }).then((response) => {
+    return response.json();
+  });
 }
 
 // 로그인 [signin]
@@ -32,9 +25,6 @@ export async function fetchSignIn(email: string, password: string) {
     },
     body: JSON.stringify({ email, password }),
   });
-  if (response.status !== 200) {
-    throw new Error("로그인에 실패했습니다.");
-  }
   return response.json();
 }
 
@@ -93,9 +83,6 @@ export async function fetchUpdateTodo(
     body: JSON.stringify({ todo, isCompleted }),
   })
     .then((response) => {
-      if (response.status !== 200) {
-        throw new Error("정상적으로 수정되지 않았습니다.");
-      }
       return response.json();
     })
     .then((json) => json as ITodo);

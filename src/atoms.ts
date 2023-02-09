@@ -10,7 +10,6 @@ export const getAccessToken = () => {
 };
 
 export const hasAccessAuth = () => {
-  console.log(getAccessToken());
   return getAccessToken() ? true : false;
 };
 

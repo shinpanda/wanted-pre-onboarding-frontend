@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Navigate,
   Route,
   RouterProvider,
 } from "react-router-dom";
 import App from "./App";
-import { hasAccessAuth } from "./atoms";
+import { AuthProvider } from "./Auth";
 import Home from "./Home";
+import Middleware from "./Middleware";
 import NotFound from "./NotFound";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
@@ -22,18 +22,18 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<NotFound />}>
-      <Route path="" element={<Home />} />
+      <Route path="" index element={<Home />} />
       <Route
         path="signup"
-        element={hasAccessAuth() ? <Navigate to="/todo" /> : <SignUp />}
+        element={<Middleware component={<SignUp />} access={true} />}
       />
       <Route
         path="signin"
-        element={hasAccessAuth() ? <Navigate to="/todo" /> : <SignIn />}
+        element={<Middleware component={<SignIn />} access={true} />}
       />
       <Route
         path="todo"
-        element={hasAccessAuth() ? <TodoList /> : <Navigate to="/signin" />}
+        element={<Middleware component={<TodoList />} access={false} />}
       />
     </Route>
   )
@@ -41,6 +41,8 @@ const router = createBrowserRouter(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
