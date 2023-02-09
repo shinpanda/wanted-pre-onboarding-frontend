@@ -1,19 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import App from "./App";
+import { hasAccessAuth } from "./atoms";
+import Home from "./Home";
+import NotFound from "./NotFound";
+import SignIn from "./routes/SignIn";
+import SignUp from "./routes/SignUp";
+import TodoList from "./routes/ToDoList";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  document.getElementById("root") as HTMLElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />} errorElement={<NotFound />}>
+      <Route path="" element={<Home />} />
+      <Route
+        path="signup"
+        element={hasAccessAuth() ? <Navigate to="/todo" /> : <SignUp />}
+      />
+      <Route
+        path="signin"
+        element={hasAccessAuth() ? <Navigate to="/todo" /> : <SignIn />}
+      />
+      <Route
+        path="todo"
+        element={hasAccessAuth() ? <TodoList /> : <Navigate to="/signin" />}
+      />
+    </Route>
+  )
+);
+
+root.render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
