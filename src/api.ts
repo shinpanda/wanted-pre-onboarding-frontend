@@ -11,6 +11,7 @@ export async function fetchSignUp(email: string, password: string) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+    credentials: "include",
   }).then((response) => {
     return response.json();
   });
@@ -24,6 +25,7 @@ export async function fetchSignIn(email: string, password: string) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+    credentials: "include",
   });
   return response.json();
 }
@@ -38,6 +40,7 @@ export async function fetchCreateToDo(todo: string) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
     body: JSON.stringify({ todo }),
+    credentials: "include",
   })
     .then((response) => {
       if (response.status !== 201) {
@@ -53,6 +56,7 @@ export async function fetchGetTodos() {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
     },
+    credentials: "include",
   })
     .then((response) => {
       if (response.status !== 200) {
@@ -75,6 +79,7 @@ export async function fetchUpdateTodo(
       Authorization: `Bearer ${getAccessToken()}`,
     },
     body: JSON.stringify({ todo, isCompleted }),
+    credentials: "include",
   })
     .then((response) => {
       return response.json();
@@ -89,6 +94,7 @@ export async function fetchDeleteTodo(id: number) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getAccessToken()}`,
     },
+    credentials: "include",
   }).then((response) => {
     if (response.status !== 204) {
       throw new Error("삭제가 정상적으로 이루어지지 않았습니다.");

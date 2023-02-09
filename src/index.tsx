@@ -36,7 +36,10 @@ const router = createBrowserRouter(
         element={<Middleware component={<TodoList />} access={false} />}
       />
     </Route>
-  )
+  ),
+  {
+    basename: process.env.PUBLIC_URL,
+  }
 );
 
 root.render(

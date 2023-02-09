@@ -1,5 +1,8 @@
 - 프로젝트의 실행 방법
+  `npm install && npm run start`
+
 - 데모 영상 (배포 링크로 대체 가능)
+  https://shinpanda.github.io/wanted-pre-onboarding-frontend
 
 * 주의할 점
 
