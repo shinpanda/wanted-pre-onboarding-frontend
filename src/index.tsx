@@ -8,12 +8,12 @@ import {
 } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./Auth";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import TodoList from "./components/ToDoList";
 import Home from "./Home";
 import Middleware from "./Middleware";
 import NotFound from "./NotFound";
-import SignIn from "./routes/SignIn";
-import SignUp from "./routes/SignUp";
-import TodoList from "./routes/ToDoList";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
